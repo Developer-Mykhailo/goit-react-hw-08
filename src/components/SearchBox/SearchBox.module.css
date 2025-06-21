@@ -1,0 +1,16 @@
+.search_wrap {
+  display: flex;
+  flex-direction: column;
+  max-width: 350px;
+  margin-bottom: 20px;
+}
+
+.search_wrap p {
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.search_wrap input {
+  padding: 8px;
+  border-radius: 4px;
+}
