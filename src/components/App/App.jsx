@@ -1,7 +1,9 @@
 import { Route, Routes } from "react-router-dom";
-import { lazy } from "react";
+import { lazy, useEffect } from "react";
 import { Suspense } from "react";
 import Layout from "../Layout/Layout";
+import { useDispatch } from "react-redux";
+import { refreshUser } from "../../redux/auth/operations";
 
 const HomePage = lazy(() => import("../../pages/HomePage/HomePage"));
 const LoginPage = lazy(() => import("../../pages/LoginPage/LoginPage"));
@@ -13,6 +15,13 @@ const RegistrationPage = lazy(() =>
 );
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
+
+  //JSX
   return (
     <>
       <Suspense fallback={null}>
