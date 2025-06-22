@@ -5,10 +5,7 @@ import { addContact } from "../../redux/contacts/operations";
 import s from "./ContactForm.module.css";
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(3, "Too Short")
-    .max(50, "Too long")
-    .required("Required"),
+  name: Yup.string().min(3, "Too Short").max(50, "Too long").required("Required"),
   number: Yup.string()
     .matches(/^\d{7,}$/, "Number must be at least 7 digits")
     .required("Required"),
