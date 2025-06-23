@@ -10,8 +10,12 @@ import { PrivateRoute } from "../PrivateRoute";
 
 const HomePage = lazy(() => import("../../pages/HomePage/HomePage"));
 const LoginPage = lazy(() => import("../../pages/LoginPage/LoginPage"));
-const ContactsPage = lazy(() => import("../../pages/ContactsPage/ContactsPage"));
-const RegistrationPage = lazy(() => import("../../pages/RegistrationPage/RegistrationPage"));
+const ContactsPage = lazy(() =>
+  import("../../pages/ContactsPage/ContactsPage")
+);
+const RegistrationPage = lazy(() =>
+  import("../../pages/RegistrationPage/RegistrationPage")
+);
 
 function App() {
   const dispatch = useDispatch();
@@ -28,17 +32,30 @@ function App() {
         <Suspense fallback={null}>
           <Routes>
             <Route path="/" element={<Layout />}>
-              <Route path="index" element={<HomePage />} />
+              <Route index element={<HomePage />} />
               <Route
                 path="/register"
-                element={<RestrictedRoute redirectTo="/" component={<RegistrationPage />} />}
+                element={
+                  <RestrictedRoute
+                    redirectTo="/"
+                    component={<RegistrationPage />}
+                  />
+                }
               />
               <Route
                 path="/login"
-                element={<RestrictedRoute redirectTo="/contacts" component={<LoginPage />} />}
+                element={
+                  <RestrictedRoute
+                    redirectTo="/contacts"
+                    component={<LoginPage />}
+                  />
+                }
               />
 
-              <Route path="/contacts" element={<PrivateRoute component={<ContactsPage />} />} />
+              <Route
+                path="/contacts"
+                element={<PrivateRoute component={<ContactsPage />} />}
+              />
             </Route>
           </Routes>
         </Suspense>

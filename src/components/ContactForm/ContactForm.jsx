@@ -1,3 +1,4 @@
+import toast, { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
@@ -5,7 +6,10 @@ import { addContact } from "../../redux/contacts/operations";
 import s from "./ContactForm.module.css";
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().min(3, "Too Short").max(50, "Too long").required("Required"),
+  name: Yup.string()
+    .min(3, "Too Short")
+    .max(50, "Too long")
+    .required("Required"),
   number: Yup.string()
     .matches(/^\d{7,}$/, "Number must be at least 7 digits")
     .required("Required"),
@@ -21,7 +25,14 @@ const ContactForm = () => {
         name: values.name,
         number: values.number,
       })
-    );
+    )
+      .unwrap()
+      .then(() => {
+        toast.success("Successfully added!");
+      })
+      .catch(() => {
+        toast.error("Faild!");
+      });
     actions.resetForm();
   };
 
@@ -46,6 +57,8 @@ const ContactForm = () => {
         </div>
 
         <button type="submit">Add contact</button>
+
+        <Toaster position="top-center" reverseOrder={false} />
       </Form>
     </Formik>
   );
